@@ -2,6 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from mysql import connector
 import pickle
+import sys
 import numpy as np
 from config import *
 
