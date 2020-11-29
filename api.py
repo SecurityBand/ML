@@ -16,13 +16,11 @@ def con_curr():
 def top_5(name, other_names):
     vect = pickle.load(open(vector_path, "rb"))
     name = vect.transform(name)
-    other_names = [i[0] for i in other_names]
     other_names = vect.transform(other_names)
-    cosine = cosine_similarity(name, other_names)
-    ans[np.where(ans > 0.65)] = 0.
-    idx = ans.argsort()[0][-5:][::-1]
-    result = [other_names[i][0] for i in idx]
-    return reult
+    cosine = cosine_similarity(name, other_names)[0]
+    ans[ans > 0.65] = 0.
+    idx = ans.argsort()[::-1][:5]
+    print(*idx)
     
 
 if __name__ == '__main__':
@@ -31,5 +29,5 @@ if __name__ == '__main__':
     name = curr.fetchone()
     curr.execute('SELECT content FROM table')
     other_names = curr.fetchall()
-  
+    other_names = [i[0] for i in other_names]
     top_5(name, other_names)
